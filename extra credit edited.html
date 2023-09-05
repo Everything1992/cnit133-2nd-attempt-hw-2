@@ -1,0 +1,118 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Monetary Exchange Rates">
+    <title>Monetary Exchange Rates</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        th, td {
+            text-align: right;
+        }
+        
+        input[type="text"] {
+            width: 100px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Monetary Exchange Rates</h1>
+    
+    <div id="instructions" style="display: none;">
+        <p>The foreign exchange rates in June 2021</p>
+        <p>Enter a dollar amount in the table below to see the corresponding foreign exchange values</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Currency</th>
+                <th>Rate</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Euro</td>
+                <td>0.84</td>
+                <td><input type="text" id="euroValue" readonly></td>
+            </tr>
+            <tr>
+                <td>Canadian Dollar</td>
+                <td>1.23</td>
+                <td><input type="text" id="cadValue" readonly></td>
+            </tr>
+            <tr>
+                <td>Hong Kong Dollar</td>
+                <td>7.76</td>
+                <td><input type="text" id="hkdValue" readonly></td>
+            </tr>
+            <tr>
+                <td>Japanese Yen</td>
+                <td>110.80</td>
+                <td><input type="text" id="jpyValue" readonly></td>
+            </tr>
+            <tr>
+                <td>Mexican Peso</td>
+                <td>19.82</td>
+                <td><input type="text" id="mxnValue" readonly></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Enter Amount of U.S. Dollars <input type="text" id="usdAmount"></p>
+
+    <button id="toggleInstructions">Click to Show/Hide Instructions</button>
+
+    <script>
+        $(document).ready(function() {
+            $("#toggleInstructions").click(function() {
+                $("#instructions").toggle();
+            });
+
+            $("#usdAmount").click(function() {
+                $(this).css("background-color", "lightyellow");
+            });
+
+            $("#usdAmount").blur(function() {
+                $(this).css("background-color", "");
+            });
+
+            $("#usdAmount").on("input", function() {
+                var usdAmount = parseFloat($(this).val());
+                if (!isNaN(usdAmount)) {
+                    $("#euroValue").val((usdAmount * 0.84).toFixed(2));
+                    $("#cadValue").val((usdAmount * 1.23).toFixed(2));
+                    $("#hkdValue").val((usdAmount * 7.76).toFixed(2));
+                    $("#jpyValue").val((usdAmount * 110.80).toFixed(2));
+                    $("#mxnValue").val((usdAmount * 19.82).toFixed(2));
+                } else {
+                    $("input[id$='Value']").val("");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
